@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yueyibo.homework.mapper.UserMapper">
+<!--    <resultMap id="user" type="com.yueyibo.homework.pojo.User">-->
+<!--        <result property="id" column="id"/>     &lt;!&ndash;数据库对象&ndash;&gt;-->
+<!--        <result property="username" column="username"/>-->
+<!--        <result property="password" column="password"/>-->
+<!--    </resultMap>-->
+    <!--    注册新用户-->
+    <insert id="register">
+        insert into homework.users_basic_information(username, password)
+        values (#{username}, #{password})
+    </insert>
+
+    <!--    更新用户基本信息-->
+    <update id="updateUserInformation">
+        update homework.users_basic_information
+        <set>
+            <if test="username != null and username != ''">
+                username= #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password=#{password},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--    根据ID删除用户-->
+    <delete id="deleteUserById">
+        delete
+        from homework.users_basic_information
+        where id =#{id}
+    </delete>
+
+    <!--    根据ID查询用户基本信息-->
+    <select id="selectUserById" resultType="com.yueyibo.homework.pojo.User">
+        select *
+        from homework.users_basic_information
+        where id = #{id}
+    </select>
+
+</mapper>
